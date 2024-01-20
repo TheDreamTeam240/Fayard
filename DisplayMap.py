@@ -15,12 +15,13 @@ group = pyscroll.PyscrollGroup(map_layer=map_layer, default_layer=1)
 bool_window = True
 
 while bool_window:
+    pygame.time.Clock().tick(60)
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
             bool_window = False
 
     group.draw(screen)
-
     pygame.display.flip()
 
 pygame.quit()
