@@ -1,3 +1,4 @@
+
 import xmltodict
 
 def xml_to_json(file_path: str) -> dict:
