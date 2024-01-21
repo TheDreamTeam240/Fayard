@@ -88,7 +88,10 @@ class ShieldPowerUp(PowerUp):
         self.game.sound_manager.play(pygame.mixer.Sound('./assets/sound/PowerUp.wav'))
 
     def beautify(self, surface):
-        if random.randint(1, 10) == 1:
-            x = random.randint(self.hitbox.midtop[0] - 10, self.rect.midtop[0] + 10)
-            y = random.randint(self.hitbox.midtop[1] - 10, self.rect.midtop[1] + 10)
-            self.game.particle_manager.particle_list.append(ShieldParticle(self.game, x, y))
+        try:
+            if random.randint(1, 10) == 1:
+                x = random.randint(self.hitbox.midtop[0] - 10, self.rect.midtop[0] + 10)
+                y = random.randint(self.hitbox.midtop[1] - 10, self.rect.midtop[1] + 10)
+                self.game.particle_manager.particle_list.append(ShieldParticle(self.game, x, y))
+        except:
+            pass

@@ -211,6 +211,7 @@ class World:
             for room in row:
                 if isinstance(room, Room):
                     room.tile_map = TileMap(room, room.room_map, Spritesheet('./assets/misc/spritesheet.png'))
+                    # room.tile_map = TileMap(room, room.room_map, Spritesheet('./assets/misc/fayardsheet.png'))
 
     def assign_objects(self):
         for row in self.world:

@@ -178,7 +178,9 @@ class Imp(Enemy):
             self.game.bullet_manager.add_bullet(
                 ImpBullet(self.game, self, self.room, self.hitbox.midbottom[0], self.hitbox.midbottom[1],
                           self.game.player.hitbox.midbottom))
-            self.game.sound_manager.play(pygame.mixer.Sound('./assets/sound/Shoot5.wav'))
+            sound_shoot_5 = pygame.mixer.Sound('./assets/sound/Shoot5.wav')
+            sound_shoot_5.set_volume(0.2)
+            self.game.sound_manager.play(sound_shoot_5)
 
     def update(self):
         self.move()

@@ -15,22 +15,30 @@ class SoundManager:
         self.sword_slash = pygame.mixer.Sound('./assets/sound/sword.wav')
         self.sword_slash.set_volume(0.3)
         self.fire_slash = pygame.mixer.Sound('./assets/sound/Fire.wav')
-        self.fire_slash.set_volume(0.3)
+        self.fire_slash.set_volume(0.15)
         self.sword_slash_cooldown = 0
         self.hit_sound = pygame.mixer.Sound('./assets/sound/Hit.wav')
         self.hit_sound.set_volume(0.6)
         self.hit_cd = 0
         self.get_item = pygame.mixer.Sound('./assets/sound/get_item.wav')
-        self.drop_items = pygame.mixer.Sound('./assets/sound/Explosion2.wav')
+        explosion2 = pygame.mixer.Sound('./assets/sound/Explosion2.wav')
+        explosion2.set_volume(0.3)
+        self.drop_items = explosion2
+        self.drop_items.set_volume(0.15)
         self.passage = pygame.mixer.Sound('./assets/sound/passage.wav')
         self.passage.set_volume(1)
-        self.player_hurt = pygame.mixer.Sound('./assets/sound/Impact4.wav')
-        self.boss_bullet = pygame.mixer.Sound('./assets/sound/Click6.wav')
+        sound_impact_4 = pygame.mixer.Sound('./assets/sound/Impact4.wav')
+        sound_impact_4.set_volume(0.15)
+        self.player_hurt = sound_impact_4
+        self.player_hurt.set_volume(0.2)
+        sound_click_6 = pygame.mixer.Sound('./assets/sound/Click6.wav')
+        sound_click_6.set_volume(0.15)
+        self.boss_bullet = sound_click_6
         self.boss_bullet.set_volume(0.2)
 
     def load_coin_sound(self):
         self.coin_sound = pygame.mixer.Sound('./assets/objects/coin/sound/Pickup Coin.wav')
-        self.coin_sound.set_volume(0.3)
+        self.coin_sound.set_volume(0.6)
 
     def play(self, sound):
         pygame.mixer.Sound.play(sound)

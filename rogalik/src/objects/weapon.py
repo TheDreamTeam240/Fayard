@@ -121,17 +121,20 @@ class Weapon(Object):
 
     def enemy_collision(self):
         for enemy in self.game.enemy_manager.enemy_list:
-            if (
-                    pygame.sprite.collide_mask(self.game.player.weapon, enemy)
-                    and enemy.dead is False
-                    and enemy.can_get_hurt_from_weapon()
-            ):
-                self.game.player.weapon.special_effect(enemy)
-                enemy.hurt = True
-                enemy.hp -= self.game.player.weapon.damage * self.game.player.strength
-                enemy.entity_animation.hurt_timer = pygame.time.get_ticks()
-                self.game.sound_manager.play_hit_sound()
-                enemy.weapon_hurt_cooldown = pygame.time.get_ticks()
+            try:
+                if (
+                        pygame.sprite.collide_mask(self.game.player.weapon, enemy)
+                        and enemy.dead is False
+                        and enemy.can_get_hurt_from_weapon()
+                ):
+                    self.game.player.weapon.special_effect(enemy)
+                    enemy.hurt = True
+                    enemy.hp -= self.game.player.weapon.damage * self.game.player.strength
+                    enemy.entity_animation.hurt_timer = pygame.time.get_ticks()
+                    self.game.sound_manager.play_hit_sound()
+                    enemy.weapon_hurt_cooldown = pygame.time.get_ticks()
+            except:
+                pass
 
     def player_update(self):
         self.interaction = False
@@ -178,7 +181,7 @@ class Weapon(Object):
 
 
 class Staff(Weapon):
-    name = 'gun'
+    name = 'staff'
     damage = 10
     size = (30, 96)
 

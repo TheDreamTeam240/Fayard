@@ -44,6 +44,7 @@ class Game:
         self.dt = 0
         # self.sound = pygame.mixer.Sound('./assets/sound/dungeon_theme_1.wav')
         self.sound = pygame.mixer.Sound('./assets/sound/gang_43_8bits.8svx')
+        self.sound.set_volume(0.3)
         self.screen_position = (0, 0)
 
     def refresh(self):
