@@ -16,7 +16,7 @@ class GameOver:
         self.hover_value = -5
         self.game_over = False
         sound_game_over = pygame.mixer.Sound('./assets/sound/game_over.wav')
-        sound_game_over.set_volume(3.0)
+        sound_game_over.set_volume(0.5)
         self.sound = sound_game_over
         self.sound.set_volume(1.9)
         self.played = False

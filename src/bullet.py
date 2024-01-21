@@ -159,6 +159,49 @@ class StaffBullet(Bullet):
                            self.radius - 1)
 
 
+class StaffBulletGrey(Bullet):
+    speed = 9
+    bullet_size = 12
+    radius = 7
+
+    def __init__(self, game, master, room, x, y, target):
+        super().__init__(game, master, room, x, y, target)
+        self.damage = 35 * self.game.player.strength
+        self.bounce_back = False
+
+    def sparkle(self):
+        for _ in range(random.randint(2, 4)):
+            self.game.particle_manager.particle_list.append(
+                StaffParticle(self.game, self.rect.x, self.rect.y, self.room))
+
+    def hit_enemy(self):
+        for enemy in self.game.enemy_manager.enemy_list:
+            if self.rect.colliderect(enemy.hitbox) and enemy.can_get_hurt_from_weapon():
+                enemy.hp -= self.damage
+                enemy.entity_animation.hurt_timer = pygame.time.get_ticks()
+                enemy.hurt = True
+                enemy.weapon_hurt_cooldown = pygame.time.get_ticks()
+                self.game.particle_manager.particle_list.append(
+                    EnemyHitParticle(self.game, self.rect.x, self.rect.y))
+                # self.kill()
+
+    def update(self):
+        self.wall_collision()
+        self.update_position()
+        self.sparkle()
+        self.hit_enemy()
+        if self.rect.y < 0 or self.rect.y > 1000 or self.rect.x < 0 or self.rect.x > 1400:
+            self.kill()
+
+    def draw(self):
+        # surface = self.game.world_manager.current_map.map_surface
+        surface = self.room.tile_map.map_surface
+        pygame.draw.circle(surface, (169, 169, 169), (self.rect.x + self.radius / 2, self.rect.y + self.radius / 2),
+                           self.radius)
+        pygame.draw.circle(surface, (151, 218, 63), (self.rect.x + self.radius / 2, self.rect.y + self.radius / 2),
+                           self.radius - 1)
+
+
 class BossBullet(Bullet):
     speed = 7
     bullet_size = 7

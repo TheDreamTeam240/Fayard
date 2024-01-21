@@ -14,7 +14,6 @@ import time
 from .bullet import BulletManager
 from .sound_manager import SoundManager
 pygame.font.init()
-# pygame!;f
 pygame.mixer.init()
 
 world_size = (21 * 64, 14 * 64)
