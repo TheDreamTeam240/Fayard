@@ -46,7 +46,7 @@ class Flask(Object):
 
 
 class GreenFlask(Flask):
-    name = 'green_flask'
+    name = '86'
     type = 'flask'
     size = (48, 48)
 

@@ -8,7 +8,7 @@ import src.utils
 from PIL import Image
 from .object import Object
 from src.particles import ParticleManager, Fire
-from src.bullet import StaffBullet
+from src.bullet import StaffBullet, StaffBulletGrey
 
 
 class WeaponSwing:
@@ -221,6 +221,80 @@ class Staff(Weapon):
         self.calculate_firing_position()
         self.game.bullet_manager.add_bullet(
             StaffBullet(self.game, self, self.game.world_manager.current_room, self.firing_position[0],
+                        self.firing_position[1], pos))
+        self.game.sound_manager.play(pygame.mixer.Sound('./assets/sound/Shoot6.wav'))
+
+    def player_update(self):
+        self.interaction = False
+        self.weapon_swing.rotate(self)
+        if self.player.attacking:
+            self.fire()
+            self.player.attacking = False
+
+    def animate(self):
+        self.animation_frame += 1.5 / 15
+        if self.animation_frame > 4:
+            self.animation_frame = 0
+        self.image = self.images[int(self.animation_frame)]
+
+    def update(self):
+        self.hovering.hovering()
+        self.animate()
+        if self.player:
+            self.player_update()
+        else:
+            self.show_price.update()
+            self.update_bounce()
+        self.update_hitbox()
+
+    def draw(self):
+        surface = self.room.tile_map.map_surface
+        if self.player:
+            surface = self.game.screen
+        surface.blit(self.image, self.rect)
+        if self.interaction:
+            self.show_name.draw(surface, self.rect)
+        self.show_price.draw(surface)
+        self.draw_shadow(surface)
+
+class StaffRock(Weapon):
+    name = 'roche'
+    damage = 10
+    size = (30, 96)
+
+    def __init__(self, game, room=None, position=None):
+        super().__init__(game, self.name, self.size, room, position)
+        self.value = 150
+        self.animation_frame = 0
+        self.images = []
+        self.load_images()
+        self.firing_position = self.hitbox.topleft
+        self.bullets = []
+        self.shadow.set_correct(3)
+
+    def load_images(self):
+        for i in range(4):
+            image = pygame.image.load(f'./assets/objects/weapon/{self.name}/{self.name}{i}.png').convert_alpha()
+            image = pygame.transform.scale(image, self.size)
+            self.images.append(image)
+        self.image = self.images[0]
+
+    def calculate_firing_position(self):
+        if 0 <= self.weapon_swing.angle < 90:
+            self.firing_position = self.hitbox.topleft
+        elif 90 <= self.weapon_swing.angle < 180:
+            self.firing_position = (self.hitbox.bottomleft[0], self.hitbox.bottomleft[1] - 15)
+        elif 0 > self.weapon_swing.angle > -90:
+            self.firing_position = self.hitbox.topright
+        else:
+            self.firing_position = (self.hitbox.bottomright[0], self.hitbox.bottomright[1] - 15)
+
+    def fire(self):
+        pos = pygame.mouse.get_pos()
+        self.update_hitbox()
+        self.calculate_firing_position()
+        self.game.bullet_manager.add_bullet(
+            StaffBulletGrey(self.game, self, self.game.world_manager.current_room, self.firing_position[0],
                         self.firing_position[1], pos))
         self.game.sound_manager.play(pygame.mixer.Sound('./assets/sound/Shoot6.wav'))
 
