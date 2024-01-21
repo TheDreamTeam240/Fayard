@@ -100,8 +100,11 @@ class Weapon(Object):
         if self.room == self.game.world_manager.current_room:
             self.room.objects.remove(self)
         self.interaction = False
+        if (self.__class__ == Sabre):
+            pygame.mixer.Sound.play(pygame.mixer.Sound('./assets/sound/Taba_machetti.wav'))
+        else:
+            self.game.sound_manager.play_get_item_sound()
         self.show_name.reset_line_length()
-        self.game.sound_manager.play_get_item_sound()
 
     def drop(self):
         self.game.sound_manager.play_drop_sound()
@@ -255,8 +258,9 @@ class Staff(Weapon):
         self.draw_shadow(surface)
 
 
-class AnimeSword(Weapon):
-    name = 'anime_sword'
+# class AnimeSword(Weapon):
+class Sabre(Weapon):
+    name = 'sabre'
     damage = 40
     size = (36, 90)
 
@@ -307,6 +311,7 @@ class AnimeSword(Weapon):
         if self.player.attacking and self.weapon_swing.counter <= 10:
             self.weapon_swing.swing()
             self.enemy_collision()
+            # self.game.sound_manager.play_sword_sound()
             self.game.sound_manager.play_sword_sound()
             self.screen_shake()
         else:
