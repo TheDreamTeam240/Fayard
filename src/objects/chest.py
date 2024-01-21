@@ -4,7 +4,8 @@ import random
 from numpy.random import choice as np
 import src.utils as utils
 from src.particles import ChestParticle
-from src.objects.weapon import AnimeSword, FireSword, Staff
+# from src.objects.weapon import AnimeSword, FireSword, Staff
+from src.objects.weapon import Sabre, FireSword, Staff
 from .object import Object
 from .flask import RedFlask, GreenFlask
 from .power_up import AttackPowerUp, ShieldPowerUp
@@ -31,7 +32,7 @@ class Chest(Object):
         self.play_sound = True
 
     def add_treasure(self):
-        items = [AnimeSword(self.game, self.room), RedFlask(self.game, self.room),
+        items = [Sabre(self.game, self.room), RedFlask(self.game, self.room),
                  ShieldPowerUp(self.game, self.room), AttackPowerUp(self.game, self.room),
                  GreenFlask(self.game, self.room), FireSword(self.game, self.room),
                  Staff(self.game, self.room)]

@@ -137,7 +137,9 @@ class Shooting:
 
     def half_circle_shoot(self):
         if self.time_passed(self.circle_time, self.circle_shooting_timer):
-            self.game.sound_manager.play(pygame.mixer.Sound('./assets/sound/Impact1.wav'))
+            sound_impact1 = pygame.mixer.Sound('./assets/sound/Impact1.wav')
+            sound_impact1.set_volume(0.3)
+            self.game.sound_manager.play(sound_impact1)
             self.circle_time = pygame.time.get_ticks()
             for i in range(-12, 12):
                 self.boss.game.bullet_manager.add_bullet(BossBullet(self.boss.game, self.boss, self.boss.room,

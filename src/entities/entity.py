@@ -60,8 +60,11 @@ class Entity:
         test_rect = self.hitbox.move(*self.velocity)  # Position after moving, change name later
         collide_points = (test_rect.midbottom, test_rect.bottomleft, test_rect.bottomright)
         for wall in self.game.world_manager.current_map.wall_list:
-            if any(wall.hitbox.collidepoint(point) for point in collide_points):
-                self.velocity = [0, 0]
+            try:
+                if any(wall.hitbox.collidepoint(point) for point in collide_points):
+                    self.velocity = [0, 0]
+            except:
+                pass
 
     def update_hitbox(self):
         self.hitbox = get_mask_rect(self.image, *self.rect.topleft)

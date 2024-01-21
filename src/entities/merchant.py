@@ -2,7 +2,8 @@ import pygame
 import random
 from src.utils import get_mask_rect
 from src.objects.object import ShowName
-from src.objects.weapon import AnimeSword, FireSword, Staff
+# from src.objects.weapon import AnimeSword, FireSword, Staff
+from src.objects.weapon import Sabre, FireSword, Staff
 from src.objects.power_up import ShieldPowerUp, AttackPowerUp
 from src.objects.flask import GreenFlask, RedFlask
 import numpy
@@ -25,7 +26,7 @@ class Merchant(Entity):
         self.items_position = [(670, 400), (770, 400), (870, 400)]
         self.items = []
         self.add_items()
-        self.texts = ['Hello there', 'How you doin?', 'I\'m a merchant orc']
+        self.texts = ['Hey man', 'it\'s very dangerous here', 'There are people with machetes lurking nearby', 'Get out of this neighbourhood quickly']
         self.dialog = ShowName(self)
         self.dialog.text_length = len(self.dialog.text)
         self.interaction = False
@@ -43,7 +44,7 @@ class Merchant(Entity):
         self.image = self.images[0]
 
     def add_items(self):
-        items = [AnimeSword(self.game, self.room), RedFlask(self.game, self.room),
+        items = [Sabre(self.game, self.room), RedFlask(self.game, self.room),
                  ShieldPowerUp(self.game, self.room), AttackPowerUp(self.game, self.room),
                  GreenFlask(self.game, self.room), FireSword(self.game, self.room),
                  Staff(self.game, self.room)]

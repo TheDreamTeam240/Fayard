@@ -104,7 +104,9 @@ class Player(Entity):
             self.rect.y += value
         else:
             self.falling = False
-            self.game.sound_manager.play(pygame.mixer.Sound('./assets/sound/Hit.wav'))
+            sound = pygame.mixer.Sound('./assets/sound/Hit.wav')
+            sound.set_volume(0.3)
+            self.game.sound_manager.play(sound)
 
     def add_walking_particles(self):
         if self.moving():
@@ -141,7 +143,9 @@ class Player(Entity):
             self.entity_animation.hurt_timer = pygame.time.get_ticks()
         if self.shield:
             self.shield -= 1
-            self.game.sound_manager.play(pygame.mixer.Sound('./assets/sound/Random1.wav'))
+            sound_random1 = pygame.mixer.Sound('./assets/sound/Random1.wav')
+            sound_random1.set_volume(0.15)
+            self.game.sound_manager.play(sound_random1)
 
     def draw(self, surface):
         if self.death_counter == 0:
