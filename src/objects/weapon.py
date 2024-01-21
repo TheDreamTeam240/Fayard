@@ -100,8 +100,11 @@ class Weapon(Object):
         if self.room == self.game.world_manager.current_room:
             self.room.objects.remove(self)
         self.interaction = False
+        if (self.__class__ == Sabre):
+            pygame.mixer.Sound.play(pygame.mixer.Sound('./assets/sound/Taba_machetti.wav'))
+        else:
+            self.game.sound_manager.play_get_item_sound()
         self.show_name.reset_line_length()
-        self.game.sound_manager.play_get_item_sound()
 
     def drop(self):
         self.game.sound_manager.play_drop_sound()
@@ -121,17 +124,20 @@ class Weapon(Object):
 
     def enemy_collision(self):
         for enemy in self.game.enemy_manager.enemy_list:
-            if (
-                    pygame.sprite.collide_mask(self.game.player.weapon, enemy)
-                    and enemy.dead is False
-                    and enemy.can_get_hurt_from_weapon()
-            ):
-                self.game.player.weapon.special_effect(enemy)
-                enemy.hurt = True
-                enemy.hp -= self.game.player.weapon.damage * self.game.player.strength
-                enemy.entity_animation.hurt_timer = pygame.time.get_ticks()
-                self.game.sound_manager.play_hit_sound()
-                enemy.weapon_hurt_cooldown = pygame.time.get_ticks()
+            try:
+                if (
+                        pygame.sprite.collide_mask(self.game.player.weapon, enemy)
+                        and enemy.dead is False
+                        and enemy.can_get_hurt_from_weapon()
+                ):
+                    self.game.player.weapon.special_effect(enemy)
+                    enemy.hurt = True
+                    enemy.hp -= self.game.player.weapon.damage * self.game.player.strength
+                    enemy.entity_animation.hurt_timer = pygame.time.get_ticks()
+                    self.game.sound_manager.play_hit_sound()
+                    enemy.weapon_hurt_cooldown = pygame.time.get_ticks()
+            except:
+                pass
 
     def player_update(self):
         self.interaction = False
@@ -178,7 +184,7 @@ class Weapon(Object):
 
 
 class Staff(Weapon):
-    name = 'gun'
+    name = 'staff'
     damage = 10
     size = (30, 96)
 
@@ -252,8 +258,9 @@ class Staff(Weapon):
         self.draw_shadow(surface)
 
 
-class AnimeSword(Weapon):
-    name = 'anime_sword'
+# class AnimeSword(Weapon):
+class Sabre(Weapon):
+    name = 'sabre'
     damage = 40
     size = (36, 90)
 
@@ -304,6 +311,7 @@ class AnimeSword(Weapon):
         if self.player.attacking and self.weapon_swing.counter <= 10:
             self.weapon_swing.swing()
             self.enemy_collision()
+            # self.game.sound_manager.play_sword_sound()
             self.game.sound_manager.play_sword_sound()
             self.screen_shake()
         else:

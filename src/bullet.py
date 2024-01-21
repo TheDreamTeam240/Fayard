@@ -44,6 +44,7 @@ class Bullet():
         if self in self.game.bullet_manager.bullets:
             self.game.bullet_manager.bullets.remove(self)
         self.game.sound_manager.play(pygame.mixer.Sound('./assets/sound/Impact5.wav'))
+        self.game.sound.set_volume(0.3)
 
     def update(self):
         self.update_position()
@@ -102,6 +103,7 @@ class Bullet():
             self.speed *= random.randint(10, 20) / 10
             self.bounce_back = False
             self.game.sound_manager.play(pygame.mixer.Sound('./assets/sound/Hit.wav'))
+            self.game.sound.set_volume(0.2)
 
 
 class ImpBullet(Bullet):

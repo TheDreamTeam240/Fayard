@@ -13,7 +13,8 @@ from .game_over import GameOver
 import time
 from .bullet import BulletManager
 from .sound_manager import SoundManager
-pygame.init()
+pygame.font.init()
+# pygame!;f
 pygame.mixer.init()
 
 world_size = (21 * 64, 14 * 64)
@@ -43,7 +44,8 @@ class Game:
         pygame.mixer.init()
         self.dt = 0
         # self.sound = pygame.mixer.Sound('./assets/sound/dungeon_theme_1.wav')
-        self.sound = pygame.mixer.Sound('./assets/sound/gang_43_8bits.8svx')
+        self.sound = pygame.mixer.Sound('./assets/sound/gang_43_8bits.wav')
+        self.sound.set_volume(0.3)
         self.screen_position = (0, 0)
 
     def refresh(self):
