@@ -76,7 +76,7 @@ class AttackPowerUp(PowerUp):
 
 
 class ShieldPowerUp(PowerUp):
-    name = 'armor'
+    name = 'sacoche_lacoste'
 
     def __init__(self, game, room, position=None):
         super().__init__(game, room, self.name, position)

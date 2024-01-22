@@ -26,7 +26,7 @@ class Merchant(Entity):
         self.items_position = [(670, 400), (770, 400), (870, 400)]
         self.items = []
         self.add_items()
-        self.texts = ['Hey man', 'it\'s very dangerous here', 'There are people with machetes lurking nearby', 'Get out of this neighbourhood quickly']
+        self.texts = ['Pedago : Hey man', 'Pedago : it\'s very dangerous here', 'Pedago : There are people with machetes lurking nearby', 'Pedago : Get out of this neighbourhood quickly']
         self.dialog = ShowName(self)
         self.dialog.text_length = len(self.dialog.text)
         self.interaction = False

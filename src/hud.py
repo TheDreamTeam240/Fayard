@@ -69,7 +69,7 @@ class PlayerGold:
 
 
 class PlayerShield:
-    name = 'armor'
+    name = 'sacoche_lacoste'
 
     def __init__(self, player):
         self.image_size = (24, 24)

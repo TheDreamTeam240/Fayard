@@ -1,5 +1,6 @@
 from .object import Object
 from pygame import Vector2
+import pygame
 import math
 import random
 
@@ -22,7 +23,11 @@ class Flask(Object):
         self.show_name.reset_line_length()
         self.image = self.original_image
         self.apply_effect()
-        self.game.sound_manager.play_get_item_sound()
+        print(self.__class__)
+        if (self.__class__ == GreenFlask):
+            pygame.mixer.Sound.play(pygame.mixer.Sound('./assets/sound/86_beer.wav'))
+        else:
+            self.game.sound_manager.play_get_item_sound()
 
     def draw(self):
         surface = self.room.tile_map.map_surface
